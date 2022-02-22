@@ -13,7 +13,7 @@ class TimeFeaturesEncoder(BaseEstimator, TransformerMixin):
 
     def fit(self, X, y=None):
         return self
-
+##
     def transform(self, X, y=None):
         assert isinstance(X, pd.DataFrame)
         X_ = X.copy()
