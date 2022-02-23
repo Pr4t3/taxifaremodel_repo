@@ -2,6 +2,7 @@ import multiprocessing
 import time
 import warnings
 from tempfile import mkdtemp
+from google.cloud import storage
 
 import category_encoders as ce
 import joblib
@@ -159,6 +160,13 @@ class Trainer(object):
         """Save the model into a .joblib format"""
         joblib.dump(self.pipeline, 'model.joblib')
         print(colored("model.joblib saved locally", "green"))
+
+    STORAGE_LOCATION = 'models/TFM_TrainAtScalePipeline/model.joblib'
+    def upload_model_to_gcp():
+        client = storage.Client()
+        bucket = client.bucket('wagon-data-815-shukla')
+        blob = bucket.blob('models/TFM_TrainAtScalePipeline/model.joblib')
+        blob.upload_from_filename('model.joblib')
 
     ### MLFlow methods
     @memoized_property
